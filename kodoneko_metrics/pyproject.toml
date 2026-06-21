@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kodoneko-metrics"
+version = "2.12.1"
+description = "Métriques de qualité logicielle (NCLOC, Halstead, McCabe, Understandability) + mesure COSMIC (ISO/IEC 19761) multi-langages via tree-sitter"
+readme = "README.md"
+authors = [{name = "Benoît Moraillon"}]
+license = {text = "AGPL-3.0"}
+requires-python = ">=3.10"
+keywords = [
+    "code-metrics", "ncloc", "sloc", "halstead", "mccabe",
+    "understandability", "iso-25010",
+    "cosmic", "iso-19761", "function-points",
+    "tree-sitter", "static-analysis", "kodoneko",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Quality Assurance",
+]
+
+# Dépendances obligatoires :
+# - tree-sitter + tree-sitter-python pour les métriques de base
+# - tree-sitter-javascript + tree-sitter-typescript pour la couverture COSMIC P1
+#   sur les projets TypeScript/JavaScript (Express, NestJS, Next.js, ...).
+# Le poids combiné des wheels est négligeable (~30 MB) et permet une
+# expérience out-of-the-box sans extras à installer.
+dependencies = [
+    "tree-sitter >= 0.21",
+    "tree-sitter-python >= 0.21",
+    "tree-sitter-javascript >= 0.21",
+    "tree-sitter-typescript >= 0.21",
+    "tree-sitter-java >= 0.21",
+]
+
+[project.optional-dependencies]
+# Grammaires pour langages systèmes (phase 2b+)
+systems = [
+    "tree-sitter-rust >= 0.21",
+    "tree-sitter-go >= 0.21",
+    "tree-sitter-c >= 0.21",
+    "tree-sitter-cpp >= 0.21",
+]
+# Grammaires pour .NET (phase 2a)
+dotnet = [
+    "tree-sitter-c-sharp >= 0.21",
+]
+# Tous langages
+all-languages = [
+    "tree-sitter-rust >= 0.21",
+    "tree-sitter-go >= 0.21",
+    "tree-sitter-c >= 0.21",
+    "tree-sitter-cpp >= 0.21",
+    "tree-sitter-c-sharp >= 0.21",
+    "tree-sitter-ruby >= 0.21",
+    "tree-sitter-bash >= 0.21",
+]
+dev = [
+    "pytest >= 7.0",
+    "pytest-cov >= 4.0",
+]
+all = [
+    "tree-sitter-rust >= 0.21",
+    "tree-sitter-go >= 0.21",
+    "tree-sitter-c >= 0.21",
+    "tree-sitter-cpp >= 0.21",
+    "tree-sitter-c-sharp >= 0.21",
+    "tree-sitter-ruby >= 0.21",
+    "tree-sitter-bash >= 0.21",
+    "pytest >= 7.0",
+    "pytest-cov >= 4.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]

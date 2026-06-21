@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kodoneko-scanner"
+version = "0.10.1"
+description = "Scanner de dépôt utilisant kodoneko-metrics — NCLOC, Halstead, McCabe, Understandability (ISO/IEC 25010)"
+readme = "README.md"
+authors = [{name = "Benoît Moraillon"}]
+license = {text = "AGPL-3.0"}
+requires-python = ">=3.10"
+keywords = ["code-metrics", "scanner", "repo", "git", "kodoneko",
+            "understandability", "iso-25010"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = [
+    "kodoneko-metrics >= 2.3.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest >= 7.0"]
+
+[project.scripts]
+kodoneko-scanner = "kodoneko_scanner.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
